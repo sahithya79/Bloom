@@ -1,6 +1,13 @@
-from django.shortcuts import render
-
+from django.shortcuts import render,HttpResponse,redirect,get_object_or_404
+from django.contrib.auth.forms import UserCreationForm,PasswordChangeForm
+from .forms import RegistrationForm,UserUpdateForm,ProfileUpdateForm
+from django.contrib.auth.models import User
+from django.contrib.auth import update_session_auth_hash
+from django.contrib.auth import authenticate, login
+from django.contrib.auth.decorators import login_required
+from . models import UserProfile
 # Create your views here.
+
 
 def register(request):
     if request.method == "POST":
@@ -11,6 +18,11 @@ def register(request):
     else:
         form = RegistrationForm()
     return render(request,'accounts/reg_form.html',{'form': form})
+
+@login_required
+def profile(request):
+    args = {'user': request.user}
+    return render(request,'accounts/profile.html', args)
 
 @login_required
 def edit_profile(request):
@@ -29,8 +41,6 @@ def edit_profile(request):
     args = {'form': form,'form_user': form_user}
     return render(request,'accounts/edit_profile.html',args)
 
-
-
 @login_required   
 def change_password(request):
     if request.method == "POST":
@@ -45,3 +55,14 @@ def change_password(request):
         form = PasswordChangeForm(user=request.user)
         args = {'form': form}
         return render(request,'accounts/change_password.html',args)  
+
+def view_profile(request,id):
+    post= get_object_or_404(UserProfile, user_id=id)
+    return render(request,'accounts/view_profile.html',{'post':post})
+    
+def subscribe(request,id):
+        post = get_object_or_404(UserProfile,user_id = id)
+        post.subscribe = True
+        post.save()
+        return redirect('/forum/')
+
