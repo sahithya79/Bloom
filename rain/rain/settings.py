@@ -18,7 +18,7 @@ TEMPLATE_DIR_ACCOUNTS=os.path.join(BASE_DIR,'accounts/templates')
 TEMPLATE_DIR_CHATS=os.path.join(BASE_DIR,'chats/templates')
 TEMPLATE_DIR_FEEDBACK=os.path.join(BASE_DIR,'feedback/templates')
 TEMPLATE_DIR_COMPLAINTS=os.path.join(BASE_DIR,'complaints/templates')
-TEMPLATE_DIR_CHATS=os.path.join(BASE_DIR,'chats/templates')
+TEMPLATE_DIR_STATS=os.path.join(BASE_DIR,'stats/templates')
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
